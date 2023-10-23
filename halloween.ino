@@ -13,15 +13,9 @@ void setup() {
 
 
 void loop() {
-  for(int i = 0; i < 3; i++)
-    fire(192, 63, 0, 255, 255, 255, false);
-  for(int i = 0; i < 3; i++)
-    fire(31, 0, 127, 0, 0, 0, false);
-  //rainbow(10);
+  fall_fill();
+  fall_sparkle();
   theaterChase(strip.Color(255, 63, 0), strip.Color(63, 0, 255), 10, 20);
-  // larson_scanner(255, 0, 0);
-  double_larson_scanner(255, 31, 0, 63, 0, 255, 10);
-  //larson_scanner_explode(255, 0, 0);
 }
 
 void rainbow(int wait) {
@@ -198,4 +192,39 @@ void rainbow_half_display() {
     strip.show();
     delay(8);
   }    
+}
+
+void fall_fill(){
+  for(int i=0; i < strip.numPixels(); i++) {
+    if (i % 4 == 0)
+      strip.setPixelColor(i, strip.Color(0, 63, 0));
+    else if (i % 4 == 1)
+      strip.setPixelColor(i, strip.Color(255, 40, 0));
+    else if (i % 4 == 2)
+      strip.setPixelColor(i, strip.Color(63, 63, 0));
+    else
+      strip.setPixelColor(i, strip.Color(255, 0, 0));
+  }
+  strip.show();
+  delay(8000);
+}
+
+void fall_sparkle(){
+  for(int sparkleCount = 0; sparkleCount < 100; sparkleCount++) {
+    for(int i=0; i < strip.numPixels(); i++) {
+      if (i % 4 == 0)
+        strip.setPixelColor(i, strip.Color(0, 63, 0));
+      else if (i % 4 == 1)
+        strip.setPixelColor(i, strip.Color(255, 40, 0));
+      else if (i % 4 == 2)
+        strip.setPixelColor(i, strip.Color(63, 63, 0));
+      else
+        strip.setPixelColor(i, strip.Color(255, 0, 0));
+    }
+    for(int j=0; j < 12; j++) {        
+      strip.setPixelColor(random(0, LED_COUNT-1), strip.Color(255, 255, 0));
+    }
+    strip.show();
+    delay(100);
+  }
 }
